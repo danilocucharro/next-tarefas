@@ -21,8 +21,17 @@ export default function Home() {
             src={heroImg}
             priority
           />
-          <h1 className={styles.title}>Sistema feito para você organizar <br/>melhor suas tarefas diárias.</h1>
         </div>
+          <h1 className={styles.title}>Sistema feito para você organizar <br/>melhor suas tarefas diárias.</h1>
+
+          <div className={styles.infoContent}>
+            <section className={styles.box}>
+              <span>+12 posts</span>
+            </section>
+            <section className={styles.box}>
+              <span>+90 comentários</span>
+            </section>
+          </div>
       </main>
     </div>
   )
