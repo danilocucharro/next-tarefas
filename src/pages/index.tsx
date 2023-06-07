@@ -5,8 +5,6 @@ import Image from 'next/image'
 
 import heroImg from '../../public/assets/hero.png'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
   return (
     <div className={styles.container}>

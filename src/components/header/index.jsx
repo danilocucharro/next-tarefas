@@ -29,7 +29,7 @@ export function Header(){
           Olá {session?.user?.name}
         </button>
         ): (
-        <button className={styles.loginButton} onClick={()=> signIn("google")}>
+        <button className={styles.loginButton} onClick={()=> signIn("github")}>
           Acessar
         </button>
         )}
