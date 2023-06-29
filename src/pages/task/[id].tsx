@@ -15,6 +15,7 @@ import {
   where 
 } from 'firebase/firestore'
 import { Textarea } from '@/src/components/textarea';
+import { FaTrash } from 'react-icons/fa'
 
 interface TaskProps{
   item: {
@@ -57,6 +58,15 @@ export default function Task({ item, allComments }: TaskProps){
         taskId: item?.taskId
       })
 
+      const data = {
+        id: docRef.id,
+        comment: input,
+        user: session?.user?.email,
+        name: session?.user?.name,
+        taskId: item?.taskId
+      }
+
+      setComments((oldItems)=>[...oldItems, data])
       setInput("")
 
     }catch(err){
@@ -97,13 +107,21 @@ export default function Task({ item, allComments }: TaskProps){
       </section>
 
       <section className={styles.commentsContainer}>
-        <h2>Todos comentários</h2>
+        <h2>Todos os Comentários</h2>
         {comments.length === 0 &&(
           <span>Nenhum comentário foi encontrado...</span>
         )}
 
         {comments.map((item)=> (
           <article key={item.id} className={styles.comment}>
+            <div className={styles.headComment}>
+              <label className={styles.commentsLabel}>{item.name}</label>
+              {item.user === session?.user?.email && (
+                <button className={styles.buttonTrash}>
+                  <FaTrash size={18} color="#ea3140"/>
+                </button>
+              )}
+            </div>
             <p>{item.comment}</p>
           </article>
         ))}
