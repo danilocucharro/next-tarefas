@@ -10,6 +10,7 @@ import {
   getDoc,
   getDocs,
   addDoc,
+  deleteDoc,
   collection,
   query,
   where 
@@ -74,6 +75,20 @@ export default function Task({ item, allComments }: TaskProps){
     }
   }
 
+  //Promisse -> "TEM QUE ESPERA ESSE AWAIT PARA SEGUIR COM A APLICAÇÃO"
+  async function handleDeleteComment(id: string){
+    try{ 
+      const docRef = doc(db, "comments", id)//acesso direto ao id do comment dentro do banco de dados
+      await deleteDoc(docRef)
+
+      const deleteComment = comments.filter((comment)=> comment.id !== id)
+
+      setComments(deleteComment)
+    }catch(err){
+      console.log(err)
+  }
+}
+
   return(
     <div className={styles.container}>
       <Head>
@@ -117,7 +132,7 @@ export default function Task({ item, allComments }: TaskProps){
             <div className={styles.headComment}>
               <label className={styles.commentsLabel}>{item.name}</label>
               {item.user === session?.user?.email && (
-                <button className={styles.buttonTrash}>
+                <button className={styles.buttonTrash} onClick={()=> handleDeleteComment(item.id)}>
                   <FaTrash size={18} color="#ea3140"/>
                 </button>
               )}
